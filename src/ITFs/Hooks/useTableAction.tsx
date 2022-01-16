@@ -3,7 +3,7 @@ import {useState,useEffect} from 'react'
 import { execGql, execGql_xx } from '../gqlclientconfig';
 import constant,{initDocumentstatus,newDocument} from '../common/constant';
 
-function useTableAction(fetchGraphQuery:any, doctype:String,deleteGraphQuery) {
+function useTableAction(fetchGraphQuery:any, doctype:String,deleteGraphQuery:any) {
     const [tableData, setTableData] = useState([])
     const [loaderDisplay, setloaderDisplay] = useState(false) 
     const [docno, setDocno] = useState('NO-ID')

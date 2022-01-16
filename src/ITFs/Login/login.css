@@ -10,6 +10,9 @@
 input[type="button"]:disabled, input[type="button"]:hover:disabled{
   background: #dddddd;
 }
+.login-container-mobile{
+  display: none;
+}
 .login-container {
   position: relative;
   width: 100%;
@@ -366,7 +369,12 @@ input[type="button"]:disabled, input[type="button"]:hover:disabled{
 }
 
 @media (max-width: 570px) {
-  .sign-in-form,
+  .form.sign-up-form {
+    z-index: 1;
+    opacity: 1;
+}
+
+  /* .sign-in-form,
   .sign-up-form {
     padding: 0 1.5rem;
   }
@@ -400,10 +408,40 @@ input[type="button"]:disabled, input[type="button"]:hover:disabled{
     top: 100%;
     transform: translate(-50%, -100%);
     transition: 1s 0.8s ease-in-out;
-  }
+  } */
 
-  .sign-in-form .title,
-.sign-up-form .title {
+
+.login-container{
   display: none;
+}
+
+.login-container-mobile{
+  display: block;
+  min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.switch-login-container{
+  display: block;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 400;
+  color:var(--main-color)
+}
+.sign-in-form .social-text,
+.sign-up-form .social-text{
+  font-size: 12px;
+  padding: 10px;
+}
+
+.sign-in-form .title, .sign-up-form .title {
+  display: block;
+  font-size: 1.7em;
+  color: #444;
+  margin-bottom: 10px;
 }
 }

@@ -52,7 +52,7 @@ const {companies,setCurrentCompany,currentcmpn,authenticated}= props;
 if(authenticated){
   return (<Dashboard/>)
 }else
-  return (
+  return (<>
     <div className={form === 'signin' ? 'login-container' : 'login-container sign-up-mode'}>
       <div className="form-container">
         <div className="signin-signup">
@@ -99,6 +99,13 @@ if(authenticated){
         </div>
       </div>
     </div>
+    
+    <div className='login-container-mobile'>
+    {form ==='signin'?
+    <M_SignInForm setForm={setSignupForm}/>:<M_SignInForm setForm={setSigninForm}/>
+    }
+    </div>
+    </>
   )
 }
 

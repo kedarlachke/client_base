@@ -40,8 +40,10 @@ currentdocument.formValid=true
 }
 export function SignInForm(props:any) {
   const [user, setUser] = useState(initobj)
+  const [loaderDisplay, setloaderDisplay] = useState(false) 
   const [captcha ,setCaptcha] = useState(false)
   const [state, setState] = useState(({}))
+  const {setForm} = props
   function updateUser(doc:any) {
     handleClearErrors();
     setUser(doc)
@@ -64,6 +66,7 @@ export function SignInForm(props:any) {
     async function handleProcessSubmitSignIn(values:any) {
          var result='',errorMessage='',errors =new Array();
          props.ActionToDispatch({ type: 'AUTH_PENDING' ,payload : ['Signing In'] });
+         setloaderDisplay(true)
          setState({formErrorMessage: 'In process'});
 
        
@@ -75,7 +78,8 @@ export function SignInForm(props:any) {
               if(!result)
               {
                 props.ActionToDispatch({ type: 'AUTH_ERROR' ,payload : errors });
-                setState({formErrorMessage: errorMessage,formErrors : errors});  
+                setState({formErrorMessage: errorMessage,formErrors : errors});
+                setloaderDisplay(false)  
               }
               else
               {
@@ -102,6 +106,7 @@ export function SignInForm(props:any) {
                             setState({formErrorMessage: 'Authenticated'});  
                             props.ActionToDispatch({ type: 'AUTH_USER' ,payload :  result  });
                             props.ActionToRedirect('/dashboard');
+                            setloaderDisplay(false)
                             }
 
                   }
@@ -151,7 +156,7 @@ export function SignInForm(props:any) {
       <input type="button" value="Login" className="btn solid" onClick={()=>{handleSubmit(user)}}  disabled = {captcha ? "" : "disabled"} />
       <div  className="field-error">{state.formErrorMessage}</div>
       <M_SocialMediaLogin label="Login" />
-      
+      <div className='switch-login-container'onClick={()=>setForm()} >New User ?</div>
     </div>
   )
 }

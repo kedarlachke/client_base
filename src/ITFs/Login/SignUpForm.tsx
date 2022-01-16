@@ -7,7 +7,7 @@ import {displaySubmitError,displayFieldError,runCheck,minLength10,
   maxLength10,emailCheck,numberCheck,requiredCheck,maxLength128,minLength2} from '../common/validationlib';
 import {connect} from 'react-redux' 
 import ReCAPTCHA from "react-google-recaptcha";
-
+import Loader from '../common/Loader/Loader'
 const initobj = {
   applicationid : "15001500", client: "45004500" ,  lang: "EN",
   username: '',
@@ -20,6 +20,8 @@ export function SignUpForm(props:any) {
   const [user, setUser] = useState(initobj)
   const [state, setState] = useState(({}))
   const [captcha ,setCaptcha] = useState(false)
+  const [loaderDisplay, setloaderDisplay] = useState(false)
+  const {setForm} = props 
   // useEffect(() => {
   //   handleClearErrors();
   //   updateUser(handleSaveCheck(user))
@@ -47,7 +49,7 @@ export function SignUpForm(props:any) {
    var result='',errorMessage='',errors =new Array();
    props.ActionToDispatch({ type: 'AUTH_PENDING' ,payload : ['Signing In'] });
    setState({formErrorMessage: 'In process'});
-   
+   setloaderDisplay(true)
    handleSignUpJWT(values,async (err:any,result:any)=>
  {
    if(!err)
@@ -56,6 +58,7 @@ export function SignUpForm(props:any) {
      {
        props.ActionToDispatch({ type: 'AUTH_ERROR' ,payload : errors });
        setState({formErrorMessage: errorMessage,formErrors : errors}); 
+       setloaderDisplay(false)
      }
      else
      {
@@ -73,10 +76,12 @@ export function SignUpForm(props:any) {
                    {
                      props.ActionToDispatch({ type: 'AUTH_ERROR' ,payload : errors });
                      setState({formErrorMessage: errorMessage,formErrors : errors}); 
+                     setloaderDisplay(false)
                    }
                    else
                    {
-                   setState({formErrorMessage: 'Authenticated'});  
+                   setState({formErrorMessage: 'Authenticated'});
+                   setloaderDisplay(false)  
                    props.ActionToDispatch({ type: 'AUTH_USER' ,payload :  result  });
                    props.ActionToRedirect('/dashboard');
                    }
@@ -88,6 +93,7 @@ export function SignUpForm(props:any) {
    {
      props.ActionToDispatch({ type: 'AUTH_ERROR' ,payload : err.errors });
      setState({formErrorMessage: err.errorMessage,formErrors : err.errors});  
+     setloaderDisplay(false)
     }
     }
 
@@ -124,6 +130,7 @@ const onCaptchaChange = (value:any) => {
 
   return (
     <div className="form sign-up-form">
+      <Loader display={loaderDisplay}/>
       <h2 className="title">Sign Up:{props.key1}</h2>
      <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-user" name="username" placeholder="Username" currdoc={user} section={"username"} label="user name" wd={"12"}/>
      <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-phone" name="mobile"  placeholder="Mobile No" currdoc={user} section={"mobile"} label="mobile" wd={"12"}/>
@@ -133,7 +140,8 @@ const onCaptchaChange = (value:any) => {
      
       <input type="button" value="Register" className="btn solid" onClick={()=>{handleSubmit(user)} }  disabled = {captcha ? "" : "disabled"}/>
       <div  className="field-error">{state.formErrorMessage}</div>
-      <M_SocialMediaLogin label="Sign up" />
+       <M_SocialMediaLogin label="Sign up" />
+       <div className='switch-login-container' onClick={()=>setForm()}>Already a member?</div> 
     </div>
   )
 }
