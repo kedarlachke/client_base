@@ -13,9 +13,11 @@ function Login(props: any) {
   const [form, setForm] = useState('signin')
   function setSignupForm() {
     setForm('signup')
+    console.log(form)
   }
   function setSigninForm() {
     setForm('signin')
+    console.log(form)
   }
 // if(sessionStorage.getItem('jwtToken') !== undefined || sessionStorage.getItem('jwtToken') !== null ){
 // props.checkuserLogggedIn()
@@ -102,7 +104,7 @@ if(authenticated){
     
     <div className='login-container-mobile'>
     {form ==='signin'?
-    <M_SignInForm setForm={setSignupForm}/>:<M_SignInForm setForm={setSigninForm}/>
+    <M_SignInForm setForm={setSignupForm}/>:<M_SignUpForm setForm={setSigninForm}/>
     }
     </div>
     </>

@@ -6,6 +6,7 @@ import {ActionToDispatch,ActionToRedirect,handleSignInJWT, checkCurrentUsernameJ
 import {displaySubmitError, runCheck,requiredCheck,maxLength128,minLength2} from '../common/validationlib';
 import {checkTouched,nvl,checkItem,isCheckedbool,getDocumenForSave} from '../common/CommonLogic';
 import ReCAPTCHA from "react-google-recaptcha";
+import Loader from '../common/Loader/Loader'
 const initobj = {
   applicationid : "15001500", client: "45004500" ,  lang: "EN",
   username: '',
@@ -148,9 +149,10 @@ export function SignInForm(props:any) {
     handleSaveCheck(user)
    return (
     <div className="form sign-in-form">
+      <Loader display={loaderDisplay}/>
       <h4 className="title">Sign In</h4>
       <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-user" name="username" placeholder="Username" currdoc={user} section={"username"} label="user name" wd={"12"}/>
-      <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-lock" name="password" placeholder="Password" currdoc={user} section={"password"} label="user name" wd={"12"}/>
+      <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-lock" name="password" placeholder="Password" currdoc={user} section={"password"} label="user name" wd={"12"} type="password"/>
      
       <ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={()=>{onCaptchaChange(true)}}   />
       <input type="button" value="Login" className="btn solid" onClick={()=>{handleSubmit(user)}}  disabled = {captcha ? "" : "disabled"} />

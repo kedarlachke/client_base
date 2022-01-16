@@ -135,7 +135,7 @@ const onCaptchaChange = (value:any) => {
      <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-user" name="username" placeholder="Username" currdoc={user} section={"username"} label="user name" wd={"12"}/>
      <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-phone" name="mobile"  placeholder="Mobile No" currdoc={user} section={"mobile"} label="mobile" wd={"12"}/>
      <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-envelope" name="email" placeholder="Email" currdoc={user} section={"email"} label="mobile" wd={"12"}/>
-     <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-lock" name="password" placeholder="Password" currdoc={user} section={"password"} label="mobile" wd={"12"}/> 
+     <M_LeftIconRoundInput  modifydoc={M_updateUser} iconClass="fas fa-lock" name="password" placeholder="Password" currdoc={user} section={"password"} label="mobile" wd={"12"} type="password"/> 
      <ReCAPTCHA sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" onChange={()=>{onCaptchaChange(true)}}   />
      
       <input type="button" value="Register" className="btn solid" onClick={()=>{handleSubmit(user)} }  disabled = {captcha ? "" : "disabled"}/>

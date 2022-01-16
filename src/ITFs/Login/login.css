@@ -435,13 +435,13 @@ input[type="button"]:disabled, input[type="button"]:hover:disabled{
 .sign-in-form .social-text,
 .sign-up-form .social-text{
   font-size: 12px;
-  padding: 10px;
+  padding: 0 0 10px 0;
 }
 
 .sign-in-form .title, .sign-up-form .title {
   display: block;
-  font-size: 1.7em;
+  font-size: 1.4em;
   color: #444;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 }

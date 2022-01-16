@@ -19,11 +19,16 @@ interface IRoundInput{
   label:string;
   cal?:string;
   wd?:string;
+  type?:string
   placeholder:string;
 }
 export function LeftIconRoundInput(props:IRoundInput) {
 
   const { wd, label, name, section, currdoc,modifydoc,cal,iconClass,placeholder } = props
+  let {type} = props
+  if(!type){
+    type='text'
+  }
   let classname = 'round-input-field'
   const errorMsg = getErrorValueN(currdoc, 'errorsAll.' + section)
   if (errorMsg !== null) {
@@ -37,7 +42,7 @@ export function LeftIconRoundInput(props:IRoundInput) {
           >
           <i className={iconClass}></i>
           <input
-            type="text"
+            type={type}
             placeholder={placeholder}
             name={name}
             value={getValue(currdoc, section)}
