@@ -103,7 +103,7 @@ const getStockcmp=()=>{
     fetchStocks({},
 
 (err:any,result:any):any=> {
-            if(err=='') {  console.log(result); props.addstocks(result);setloaderDisplay(!loaderDisplay)  }
+            if(err=='') {  console.log(result); props.addstocks(result);setloaderDisplay(false)  }
             else   {console.log(err,result)} })
           }
    
