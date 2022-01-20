@@ -4,11 +4,13 @@ import register from './img/register.svg'
 import log from './img/log.svg'
 import { M_SignInForm } from './SignInForm'
 import { M_SignUpForm } from './SignUpForm'
+import { M_OTPSignUpForm } from './OTPSignUpForm'
+import {M_OTPSignInForm} from './OTPSignInForm'
 import {connect} from 'react-redux' 
 import Dashboard from '../Dashboard/Dashboard'
 import { ActionToDispatch } from '../Redux/reducers/actions/index'
 import {setCurrentCompany} from '../Redux/ActionCreators'
-
+const logintype = "otp" 
 function Login(props: any) {
   const [form, setForm] = useState('signin')
   function setSignupForm() {
@@ -50,6 +52,7 @@ const {companies,setCurrentCompany,currentcmpn,authenticated}= props;
   
           setCurrentCompany(selectedcmpn);
       }
+      
 
 if(authenticated){
   return (<Dashboard/>)
@@ -58,8 +61,8 @@ if(authenticated){
     <div className={form === 'signin' ? 'login-container' : 'login-container sign-up-mode'}>
       <div className="form-container">
         <div className="signin-signup">
-          <M_SignInForm />
-          <M_SignUpForm />
+        {logintype ==="otp" ? <M_OTPSignInForm />:<M_SignInForm />}
+          {logintype ==="otp" ? <M_OTPSignUpForm />:<M_SignUpForm/>}
           
         </div>
       </div>
@@ -103,8 +106,9 @@ if(authenticated){
     </div>
     
     <div className='login-container-mobile'>
-    {form ==='signin'?
-    <M_SignInForm setForm={setSignupForm}/>:<M_SignUpForm setForm={setSigninForm}/>
+    {form ==='signin'?logintype ==="otp"? <M_OTPSignInForm setForm={setSignupForm}/>:<M_SignInForm setForm={setSignupForm}/>
+      :logintype ==="otp" ? <M_OTPSignUpForm setForm={setSigninForm}/>:<M_SignUpForm setForm={setSignupForm}/>
+      
     }
     </div>
     </>

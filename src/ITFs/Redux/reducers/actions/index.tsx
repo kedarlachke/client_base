@@ -8,6 +8,9 @@ import SignInUsernameJWT from '../../../mutations/signInUsernameJWT';
 import SignUpUsername from '../../../mutations/signUpUsername';
 import SignUpUsernameJWT from '../../../mutations/signUpUsernameJWT';
 
+import signUpMobileJWT from '../../../mutations/signUpMobileJWT';
+import verifyMobileOTPJWT from '../../../mutations/verifyMobileOTPJWT';
+import signInMobileJWT from '../../../mutations/signInMobileJWT';
 
 
 import CurrentUser from '../../../queries/CurrentUser';
@@ -147,7 +150,7 @@ export async function handleSignInJWT(values:any,callback:any) {
  {
    result= await execGql('mutation',SignInUsernameJWT,values)
   }
- catch(err)
+ catch(err:any)
  {  
     errors = err.errorsGql;
     errorMessage = err.errorMessageGql;
@@ -161,6 +164,30 @@ export async function handleSignInJWT(values:any,callback:any) {
  {
  return callback('',result.data.signInUsernameJWT);
  }
+ }
+
+ export async function handleMobileSignInJWT(values:any,callback:any) {
+  let result:any='',errorMessage='',errors =new Array();
+  console.log(values)
+ try
+ {
+   result= await execGql('mutation',signInMobileJWT,values)
+   if(!result)
+ {
+   return callback({"errors":[],"errorMessage":'No errors and results from GQL'} ,'');
+ }
+ else
+ {
+ return callback('',result.data.signInMobileJWT);
+ }
+  }
+ catch(err:any)
+ {  
+    errors = err.errorsGql;
+    errorMessage = err.errorMessageGql;
+   return callback({"errors":errors,"errorMessage":errorMessage},'' );
+ }
+ 
  }
 
 
@@ -178,7 +205,7 @@ export async function handleSignUpJWT(values:any,callback:any)
      console.log(result);
      console.log('resultJWT--end');
   }
-  catch(err)
+  catch(err:any)
    {  
     console.log('errJWT');
     console.log(err);
@@ -198,6 +225,64 @@ export async function handleSignUpJWT(values:any,callback:any)
  }
  }
 
+
+ export async function handleMobileSignUpJWT(values:any,callback:any) 
+ {
+  let result:any='',errorMessage='',errors =new Array();
+  try
+  {   
+     result= await execGql('mutation',signUpMobileJWT,values)
+     console.log('resultJWT');
+     console.log(result);
+     console.log('resultJWT--end');
+  }
+  catch(err:any)
+   {  
+    console.log('errJWT');
+    console.log(err);
+    console.log('errJWT--end');
+      errors = err.errorsGql;
+      errorMessage = err.errorMessageGql;    
+      return callback({"errors":errors,"errorMessage":errorMessage},'' );
+   }
+ if(!result)
+ {
+
+   return callback({"errors":[],"errorMessage":'No errors and results from GQL'} ,'');
+ }
+ else
+ {
+    return callback('',result.data.signUpMobileJWT);
+ }
+ }
+
+ export async function handleVerifyMobileOTPJWT(values:any,callback:any) 
+ {
+  let result:any='',errorMessage='',errors =new Array();
+  try
+  {   
+     result= await execGql('mutation',verifyMobileOTPJWT,values)
+     if(!result)
+ {
+
+   return callback({"errors":[],"errorMessage":'No errors and results from GQL'} ,'');
+ }
+ else
+ {
+    return callback('',result.data.verifyMobileOTPJWT);
+ }
+  }
+  catch(err:any)
+   {  
+    console.log('errJWT');
+    console.log(err);
+    console.log('errJWT--end');
+      errors = err.errorsGql;
+      errorMessage = err.errorMessageGql;    
+      return callback({"errors":errors,"errorMessage":errorMessage},'' );
+   }
+ 
+ }
 
 
 
@@ -263,6 +348,14 @@ export async function  checkCurrentUsernameJWT(callback:any) {
   try
   {
       result= await execGql('query',CurrentUserJWT,{})
+      if(!result.data.currentUsernameJWT)
+      {
+            callback();
+      }
+      else
+      {
+           callback('',result.data.currentUsernameJWT);
+       }   
       console.log('gql result');
       console.log(result);
   }
@@ -274,14 +367,7 @@ export async function  checkCurrentUsernameJWT(callback:any) {
       errorMessage = err.errorMessageGql;   
        return callback({errors,errorMessage});
     }
-   if(!result.data.currentUsernameJWT)
-      {
-            callback();
-      }
-      else
-      {
-           callback('',result.data.currentUsernameJWT);
-       }   
+   
 } 
 
 

@@ -223,7 +223,8 @@ export const maxLength2= maxLength(2)
 
 export const minLength8= minLength(8)
 export const maxLength8= maxLength(8)
-
+export const minLength6= minLength(6)
+export const maxLength6= maxLength(6)
 export const minLength10= minLength(10)
 export const maxLength10= maxLength(10)
 
